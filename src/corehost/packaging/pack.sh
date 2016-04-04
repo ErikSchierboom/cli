@@ -101,7 +101,7 @@ pushd "$__project_dir/deps"
 __runtime_json_version="1.0.1-rc2-23931"
 __project_json_contents="{ \"dependencies\": { \"Microsoft.NETCore.Platforms\": \"$__runtime_json_version\" }, \"frameworks\": { \"dnxcore50\": { \"imports\": \"portable-net45+win8\" } } }"
 echo $__project_json_contents > "project.json"
-"$__project_dir/Tools/dotnetcli/bin/dotnet" restore --source "https://dotnet.myget.org/F/dotnet-core" --packages "$__project_dir/packages"
+"$__project_dir/Tools/dotnetcli/dotnet" restore --source "https://dotnet.myget.org/F/dotnet-core" --packages "$__project_dir/packages"
 if [ ! -f "$__project_dir/Tools/runtime.json" ]; then
     cp "$__project_dir/packages/Microsoft.NETCore.Platforms/$__runtime_json_version/runtime.json" "$__project_dir/Tools/runtime.json"
 fi

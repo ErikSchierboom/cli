@@ -53,16 +53,16 @@ call "%__ProjectDir%\init-tools.cmd"
 
 :: Setup deps
 pushd "%__ProjectDir%\deps"
-set __RuntimeJsonVersion="1.0.1-rc2-23931"
+set __RuntimeJsonVersion=1.0.1-rc2-23931
 set __ProjectJsonContents={ "dependencies": { "Microsoft.NETCore.Platforms": "%__RuntimeJsonVersion%" }, "frameworks": { "dnxcore50": { "imports": "portable-net45+win8" } } }
 
 :: Restore deps
 echo %__ProjectJsonContents% > "project.json"
-"%__ProjectDir%\Tools\dotnetcli\bin\dotnet.exe" restore --source "https://dotnet.myget.org/F/dotnet-core" --packages "%__ProjectDir%\packages"
+"%__ProjectDir%\Tools\dotnetcli\dotnet.exe" restore --source "https://dotnet.myget.org/F/dotnet-core" --packages "%__ProjectDir%\packages"
 
 :: Copy runtime.json
-set __RuntimeJsonFile="%__ProjectDir%\Tools\runtime.json"
-if not exist "%__RuntimeJsonFile%" (copy /y "%__ProjectDir%\packages\Microsoft.NETCore.Platforms\%__RuntimeJsonVersion%\runtime.json" %__RuntimeJsonFile%)
+set "__RuntimeJsonFile=%__ProjectDir%\Tools\runtime.json"
+if not exist "%__RuntimeJsonFile%" (copy /y "%__ProjectDir%\packages\Microsoft.NETCore.Platforms\%__RuntimeJsonVersion%\runtime.json" "%__RuntimeJsonFile%")
 popd
 
 :: Clean up existing nupkgs
